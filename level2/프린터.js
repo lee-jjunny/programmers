@@ -45,5 +45,5 @@ let test1 = [[2, 1, 3, 2], 2];
 let test2 = [[1, 1, 9, 1, 1, 1], 0];
 
 console.log('=======solution=======');
-console.log('test1 >> ', solution2(...test1));
-// console.log('test2 >> ', solution(...test2));
+console.log('test1 >> ', solution(...test1));
+console.log('test2 >> ', solution(...test2));
