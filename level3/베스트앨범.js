@@ -44,27 +44,35 @@
     return resultArr;
 }
 
-/* 다른 사람의 풀이 - 이해해보기... */
+/* 다른 사람의 풀이 - 이해해보기 */
 function solution2(genres, plays) {
-    var dic = {};
+    var countObj = {}; // 장르별 재생 횟수를 담은 객체
+    
     genres.forEach((genre,i)=> {
-        dic[genre] = dic[genre] ?  dic[genre] + plays[i] :plays[i];        
+        // countObj에 장르 키가 이미 있으면 기존 값에 play값을 누적, 아니면 play 값 새로 등록
+        countObj[genre] = countObj.hasOwnProperty(genre) ? countObj[genre] + plays[i] : plays[i];        
     });
 
-    var dupDic = {};
-    return genres          
-          .map((genre,i)=> ({genre : genre, count:plays[i] , index:i}))
-          .sort((a,b)=>{               
-               if(a.genre !== b.genre) return dic[b.genre] - dic[a.genre];
-               if(a.count !== b.count) return b.count - a.count;
-               return a.index - b.index;
-           })
-           .filter(genre=>  {
-               if(dupDic[genre.genre] >= 2) return false;
-               dupDic[genre.genre] = dupDic[genre.genre] ? dupDic[genre.genre]+ 1 : 1;
-               return true;
+    var bestObj = {}; // 베스트 앨범에 수록된 장르의 갯수를 담은 객체
+    return  genres.map((genre,i)=> ({genre: genre, count: plays[i], index: i}))
+            .sort((v1, v2) => {
+                // 비교대상의 장르가 다른 경우, 장르 재생 횟수 내림차순으로 정렬 (재생 횟수가 큰 장르 우선)
+                if(v1.genre !== v2.genre) return countObj[v2.genre] - countObj[v1.genre];
+                // 장르는 같지만 노래 재생 횟수가 다른 경우, 노래 재생 횟수 내림차순으로 정렬 (재생 횟수가 큰 노래 우선)
+                if(v1.count !== v2.count) return v2.count - v1.count;
+                // 장르도 같고 재생 횟수도 같은 경우, 노래 고유번호 오름차순으로 정렬 (고유 번호가 낮은 노래 우선)
+                return v1.index - v2.index;
             })
-           .map(genre=> genre.index);    
+            .filter((songInfo) => {
+                // 베스트 앨범에 해당 장르의 곡이 이미 2곡 수록 되어 있으면, 더이상 베스트 앨범에 수록하지 않음
+                if(bestObj[songInfo.genre] >= 2) return false;
+                // 베스트 앨범에 해당 장르의 곡이 수록되어 있으면 1 증가, 아니면 해당 장르 값에 1로 초기화
+                bestObj[songInfo.genre] = bestObj.hasOwnProperty(songInfo.genre) ? bestObj[songInfo.genre] + 1 : 1;
+                // 베스트 앨범에 수록하기 위해 true 반환
+                return true;
+            })
+            // 베스트 앨범에 들어갈 노래의 고유번호만 리턴
+           .map((songInfo) => { return songInfo.index });
 }
 
 /* 테스트 */
