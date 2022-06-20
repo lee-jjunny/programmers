@@ -16,7 +16,9 @@ function solution(n) {
 /* 테스트 */
 let test1 = 12;
 let test2 = 5;
+let test3 = 5;
 
 console.log('=======solution=======');
 console.log('test1 >> ', solution(test1));
 console.log('test2 >> ', solution(test2));
+console.log('test3 >> ', solution(test3));
