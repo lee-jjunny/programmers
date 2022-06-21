@@ -10,15 +10,18 @@
 
 function solution(n) {
     var answer = 0;
+    
+    for(let i = 0; i <= n; i++){
+        if(n % i === 0) answer += i;
+    }
+
     return answer;
 }
 
 /* 테스트 */
 let test1 = 12;
 let test2 = 5;
-let test3 = 5;
 
 console.log('=======solution=======');
 console.log('test1 >> ', solution(test1));
 console.log('test2 >> ', solution(test2));
-console.log('test3 >> ', solution(test3));
