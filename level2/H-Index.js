@@ -15,7 +15,14 @@
  */
 
  function solution(citations) {
+    let citaLen = citations.length;
     var answer = 0;
+    citations = citations.sort().forEach((value, index) => {
+        console.log('value > ', value)
+        console.log('len > ', citaLen-index)
+        if(value >= (citaLen-(index+1))) answer = value;
+    });
+    
     return answer;
 }
 
