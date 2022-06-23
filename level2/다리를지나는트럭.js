@@ -19,6 +19,18 @@
 
  function solution(bridge_length, weight, truck_weights) {
     var answer = 0;
+    let nowWeight = 0;
+    let result = [];
+
+    truck_weights.forEach((value) => {
+        nowWeight+=value;
+        if(result)
+        result.push(value);
+
+        
+    })
+    
+
     return answer;
 }
 
